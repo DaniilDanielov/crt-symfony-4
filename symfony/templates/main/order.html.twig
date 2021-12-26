@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div> Вы заказали </div>
+    <h3>Ваш завказ</h3>
+    {% for item in items %}
+
+        {% set sumposition = item.count * item.item.price %}
+        <div class="border border-dark">
+
+<div>Пиццу: {{ item.item.title}}  </div>
+<div>В количестве:{{ item.count}} </div>
+<div>Стоимость по позиции:{{sumposition}} </div>
+{% set sum = sumposition + sumposition %}
+{% endfor%}
+<div> Общая стоимость: {{ amount }} </div>
+    <h2>Форма заказа</h2>
+    {{ form_start(order_form) }}
+    {{ form_widget(order_form) }}
+    {{ form_end(order_form) }}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Каталог пиццы {% endblock %}
+            {% block body %}
+<h2>Каталог пиццы</h2>
+                {% for pizza in pizzas %}
+                    {% set form =  formObject.createView %}
+                        <div class="row">
+                            <div class="col-md-2 card">
+                                <h4 class="card-title text-center ">{{ pizza.title }}</h4>
+                                    <img src="{{ asset('upload/files/')}}{{pizza.image}}" class="card-img-top text-ali" alt="...">
+                                    <div class="card-body text-center">
+
+                                        <p class="card-text text-center">Цена: {{ pizza.price }}</p>
+                                        <p class="card-text">Состав:{{ pizza.description|raw }}</p>
+
+                                        <a href="{{ path('pizza',{id:pizza.id}) }}" class="btn btn-primary">Подробнее</a>
+                                        {{ form_start(form) }}
+                                        {{ form_widget(form.pizzaId, {'attr': {'value':pizza.id }}) }}
+                                        {{ form_end(form) }}
+                                    </div>
+                            </div>
+                        </div>
+                {% endfor %}
+                {{ knp_pagination_render(pizzas) }}
+{% endblock %}

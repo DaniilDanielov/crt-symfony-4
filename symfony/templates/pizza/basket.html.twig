@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h2>Корзина </h2>
+    {% if items is empty %}
+    <h3>{{ message }}</h3>
+    {% else %}
+<div> Вы заказали: </div>
+{% for item in items %}
+    {% set form = formObject.createView %}
+     {% set sumposition = item.count * item.item.price %}
+<div class="border border-dark">
+    <div>Пиццу: {{ item.item.title}}  </div>
+    <div>В количестве:{{ item.count}} </div>
+    <div>Стоимость по позиции:{{sumposition}} </div>
+    {{ form_start(form) }}
+    {{ form_widget(form.pizzaId, {'attr': {'value':item.item.id }}) }}
+    {{ form_widget(form.quantity, {'attr': {'value':item.count }}) }}
+    {{ form_end(form) }}
+    {% set sum = sumposition + sumposition %}
+    {% endfor%}
+        <div> Общая стоимость: {{ amount }} </div>
+        </div>
+        </div>
+        <a href="{{ path('order') }}">  <button type="button" class="btn btn-sm btn-outline-secondary text-center"> Оформить заказ</button></a>
+    {% endif %}
+    {% endblock %}
+
