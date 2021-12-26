@@ -38,7 +38,6 @@ final class Version20211222201630 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE messenger_messages');
         $this->addSql('ALTER TABLE "user" RENAME COLUMN user_full_name TO user_name');
     }
