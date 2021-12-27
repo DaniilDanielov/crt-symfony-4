@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div> Вы заказали </div>
-    <h3>Ваш завказ</h3>
+    <h3>Ваш заказ</h3>
     {% for item in items %}
 
         {% set sumposition = item.count * item.item.price %}
