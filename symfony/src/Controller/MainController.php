@@ -114,7 +114,7 @@ class MainController extends AbstractController
         $items = $basketRepository->getBasketItems($this->session);
         $amount = $this->amountService->calculateAmount($items);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->formSubmitHandlerService->OrderTypeSubmit($order,$id);
+            $this->formSubmitHandlerService->OrderTypeSubmit($order);
             $bus->dispatch(new OrderMessage($order->getId(), []));
             $this->addFlash('success', 'Заявка отправлена в очередь обработки RabbitMQ!');
             return $this->redirectToRoute('order');
