@@ -3,7 +3,7 @@
 
 В корневой папке проекта ввести команды: 
 
-1.docker compose up -d 
+1.docker-compose up -d 
 
 2.docker-compose exec app composer install
 
