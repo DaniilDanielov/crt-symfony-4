@@ -7,7 +7,7 @@
 
 2.docker-compose exec app composer install
 
-3.bin/console doctrine:migrations:migrate \
+3.docker-compose exec app bin/console doctrine:migrations:migrate \
 4.Дамп базы данных находится в папке postgres/dump
 
 Комментарии по заданию:\
