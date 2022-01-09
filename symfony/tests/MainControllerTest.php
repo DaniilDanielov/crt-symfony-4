@@ -25,4 +25,14 @@ class MainControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h2', 'Корзина');
     }
 
+    public function testApi(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/api/pizzas');
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+
+
 }
