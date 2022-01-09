@@ -8,8 +8,8 @@
 2.docker-compose exec app composer install
 
 3.docker-compose exec app bin/console doctrine:migrations:migrate \
-4.Дамп базы данных находится в папке postgres/dump
-
+4 docker-compose exec app bin/console lexik:jwt:generate-keypair
+5.Дамп базы данных находится в папке postgres/dump
 Комментарии по заданию:\
 Роли на сайте.
 

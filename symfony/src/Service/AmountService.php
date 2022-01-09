@@ -5,7 +5,7 @@ namespace App\Service;
 
 class AmountService
 {
-    public function calculateAmount($items):? int
+    public function calculateAmount($items): ?int
     {
         $amount=[];
         foreach ($items as $item)

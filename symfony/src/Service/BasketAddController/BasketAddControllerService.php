@@ -2,6 +2,8 @@
 
 namespace App\Service\BasketAddController;
 
+use App\Entity\Pizzas;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Basket;
 use App\Repository\BasketRepository;
@@ -14,14 +16,16 @@ class BasketAddControllerService implements BasketAddControllerInterface
     private $amountService;
     public function __construct(BasketRepository $basketRepository,
                                 SessionInterface $session,
-                                AmountService $amountService)
+                                AmountService $amountService,
+                                EntityManagerInterface $em)
     {
         $this->session = $session;
         $this->basketRepository = $basketRepository;
         $this->amountService = $amountService;
+        $this->em=$em;
     }
 
-    public function AddBasketDataToNavbar()
+    public function AddBasketDataToNavbar(): void
     {
         $items = $this->basketRepository->getBasketItems($this->session);
             $count=count($items);
@@ -31,10 +35,28 @@ class BasketAddControllerService implements BasketAddControllerInterface
             $this->session->set('amount', $amount);
     }
 
-    public function getOrderLink() {
+    public function getOrderLink(): void {
         $this->session->set('orderLink', 'Оформление заказа доступно');
     }
 
+    public function AddtoBasket($count,$id): void {
+        $sessionId=$_COOKIE['PHPSESSID'];
+        $pizza = $this->em->getRepository(Pizzas::class)->findOneBy(['id' => $id]);
+        $targetBasket = $this->em->getRepository(Basket::class)->findOnePositionByPizzasId($id, $sessionId);
+        if (empty($targetBasket)) {
+            $basket = (new Basket())
+                ->setItem($pizza)
+                ->setSessionId($sessionId)
+                ->setCount($count);
+            $this->em->persist($basket);
+            $this->em->flush();
+        } else {
+            $quantity = $targetBasket->getCount() + $count;
+            $targetBasket->setCount($quantity);
+            $this->em->persist($targetBasket);
+            $this->em->flush();
+        }
 
+    }
 
 }

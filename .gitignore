@@ -5,7 +5,7 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/postgres/data/
+/docker/postgres/data/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
