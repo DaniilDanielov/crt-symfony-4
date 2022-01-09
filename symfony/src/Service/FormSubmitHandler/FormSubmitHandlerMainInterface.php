@@ -3,10 +3,10 @@ namespace App\Service\FormSubmitHandler;
 
 interface FormSubmitHandlerMainInterface
 {
-    public function basketFormTypeSubmit ($form);
+    public function basketFormTypeSubmit ($form): void;
 
-    public function orderTypeSubmit ($order);
+    public function orderTypeSubmit ($order): void;
 
-    public function basketCountChangerTypeSubmit($pizzaId,$quantity);
+    public function basketCountChangerTypeSubmit($pizzaId,$quantity): void;
 
 }

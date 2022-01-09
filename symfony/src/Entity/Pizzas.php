@@ -2,16 +2,32 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Dto\PizzasInput;
+use App\Dto\UserInput;
 use App\Repository\PizzasRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use phpDocumentor\Reflection\Types\Integer;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
+
 
 /**
  * @ORM\Entity(repositoryClass=PizzasRepository::class)
  * @Vich\Uploadable
  */
+#[ApiResource(
+    collectionOperations: ['post'=>['security' => "is_granted('ROLE_ADMIN')",
+        'input'=> PizzasInput::class],'get'],
+    itemOperations: ['get','delete'=>['security' => "is_granted('ROLE_ADMIN')"]],
+
+)]
+
 class Pizzas
 {
     /**
@@ -24,17 +40,17 @@ class Pizzas
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private  string $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\Column(type="datetime")
@@ -50,12 +66,12 @@ class Pizzas
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $price;
+    private int $price;
 
     /**
      * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="item", orphanRemoval=true,fetch="EAGER")
      */
-    private $baskets;
+    private iterable $baskets;
 
     /**
      * @ORM\ManyToMany(targetEntity=Ingredients::class, mappedBy="pizzas")

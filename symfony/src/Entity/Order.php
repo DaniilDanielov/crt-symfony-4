@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -22,27 +24,27 @@ class Order
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $sessionId;
+    private string $sessionId;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $status = 1;
+    private int $status = 1;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $userPhone;
+    private ?string $userPhone;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $UserAddress;
+    private ?string $UserAddress;
 
     public function __toString(): string
     {

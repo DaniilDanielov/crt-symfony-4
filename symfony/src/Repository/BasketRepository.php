@@ -23,8 +23,8 @@ class BasketRepository extends ServiceEntityRepository
 
     public function findOneByIdJoinedToCategory(string $productId): Basket
     {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
+
+        $query = $this->entityManager->createQuery(
             'SELECT p, c
             FROM App\Entity\Basket p
             INNER JOIN p.item c
@@ -34,23 +34,7 @@ class BasketRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-
-     /**
-      * @return Basket[] Returns an array of Basket objects
-      */
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
-
-
-    public function findOneBySomeFields($item,$session): ?Basket
+    public function findOnePositionByPizzasId($item,$session): ?Basket
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.item = :item')
@@ -66,6 +50,25 @@ class BasketRepository extends ServiceEntityRepository
     public function getBasketItems($session)
     {
         $sessionId=$session->getId();
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.sessionId = :session')
+            ->setParameter('session', $sessionId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function getBasketById($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getBasketItemsBySessionId($sessionId)
+    {
         return $this->createQueryBuilder('b')
             ->andWhere('b.sessionId = :session')
             ->setParameter('session', $sessionId)

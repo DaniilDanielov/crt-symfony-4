@@ -7,12 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Dto\UserInput;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
+#[ApiResource(collectionOperations: ['get','post'=>['input'=> UserInput::class]],
+    itemOperations: ['get','delete'],
+    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
+
+
+
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -20,39 +28,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $userPhone;
+    private ?string $userPhone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $userAddress;
+    private ?string $userAddress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $UserFullName;
+    private ?string $UserFullName;
 
 
     public function getId(): ?int
