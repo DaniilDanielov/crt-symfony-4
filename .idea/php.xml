@@ -155,6 +155,10 @@
       <path value="$PROJECT_DIR$/symfony/vendor/namshi/jose" />
       <path value="$PROJECT_DIR$/symfony/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/symfony/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/symfony/vendor/nelmio/alice" />
+      <path value="$PROJECT_DIR$/symfony/vendor/hautelook/alice-bundle" />
+      <path value="$PROJECT_DIR$/symfony/vendor/theofidry/alice-data-fixtures" />
+      <path value="$PROJECT_DIR$/symfony/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">

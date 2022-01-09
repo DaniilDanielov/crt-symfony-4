@@ -159,6 +159,10 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/namshi/jose" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/nelmio/alice" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/hautelook/alice-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/theofidry/alice-data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/fakerphp/faker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
