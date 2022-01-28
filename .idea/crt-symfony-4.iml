@@ -163,6 +163,16 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/hautelook/alice-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/theofidry/alice-data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/fakerphp/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/webmozart/path-util" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/vimeo/psalm" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/netresearch/jsonmapper" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/openlss/lib-array2xml" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/felixfbecker/language-server-protocol" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/felixfbecker/advanced-json-rpc" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/amphp/byte-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/amphp/amp" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/dnoegel/php-xdg-base-dir" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/workflow" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

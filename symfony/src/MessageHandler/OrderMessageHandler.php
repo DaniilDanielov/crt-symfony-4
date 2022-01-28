@@ -11,7 +11,7 @@ class OrderMessageHandler implements MessageHandlerInterface
     public function __construct(EntityManagerInterface $entityManager, OrderRepository $orderRepository)
     {
         $this->orderRepository=$orderRepository;
-       $this->entityManager=$entityManager;
+        $this->entityManager=$entityManager;
     }
 
     public function __invoke(OrderMessage $orderMessage)

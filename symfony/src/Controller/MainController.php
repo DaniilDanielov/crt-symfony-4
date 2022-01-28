@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-
 use App\Entity\Order;
 use App\Entity\Pizzas;
 use App\Form\AddToBasketType;
@@ -20,26 +18,36 @@ use Twig\Environment;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManagerInterface as EntityManagerInterface;
 use App\Service\AmountService;
 use App\Form\BasketCountChangerType;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow;
 
 class MainController extends AbstractController
 {
-    private $entityManager;
-    private $twig;
+    private EntityManagerInterface $entityManager;
+    private Environment $twig;
     private $formSubmitHandlerService;
     private $amountService;
     private $sessionId;
+    private $registry;
+    private $workflow;
 
 
-    public function __construct(Environment                $twig,
-                                EntityManagerInterface     $entityManager,
-                                SessionInterface           $session,
-                                AmountService              $amountService,
-                                FormSubmitHandlerInterface $formSubmitHandlerService)
+
+    public function __construct(
+        Environment                $twig,
+        EntityManagerInterface     $entityManager,
+        SessionInterface           $session,
+        AmountService              $amountService,
+        FormSubmitHandlerInterface $formSubmitHandlerService,
+        Registry $registry,
+
+    )
     {
         $this->entityManager = $entityManager;
+
         $this->twig = $twig;
         $this->amountService = $amountService;
         $this->formSubmitHandlerService = $formSubmitHandlerService;
@@ -50,16 +58,18 @@ class MainController extends AbstractController
 
 
     #[Route('/', name: 'main')]
-    public function index(Request            $request,
-                          PaginatorInterface $paginator,
-                          PizzasRepository   $pizzasRepository,
-    ): Response
-    {
+    public function index(
+        Request            $request,
+        PaginatorInterface $paginator,
+        PizzasRepository   $pizzasRepository,
+    ): Response {
         $form = $this->createForm(AddToBasketType::class);
         $form->handleRequest($request);
         $pizzas = $paginator->paginate($pizzasRepository->findAll(), $request->query->getInt('page', 1), 2);
-        return new Response($this->twig->render('main/index.html.twig',
-            ['pizzas' => $pizzas, 'formObject' => $form,]));
+        return new Response($this->twig->render(
+            'main/index.html.twig',
+            ['pizzas' => $pizzas, 'formObject' => $form,]
+        ));
     }
 
     #[Route("/pizza/{id}", name: 'pizza')]
@@ -70,10 +80,12 @@ class MainController extends AbstractController
         if ($form->isSubmitted()) {
             $this->addFlash('success', 'Ваша пицца добавлена в корзину!');
         }
-        return new Response($this->twig->render('pizza/show.html.twig',
+        return new Response($this->twig->render(
+            'pizza/show.html.twig',
             ['pizza' => $pizza,
             'form' => $form->createView(),
-            ]));
+            ]
+        ));
     }
 
     #[Route("/basket", name: 'basket')]
@@ -98,25 +110,30 @@ class MainController extends AbstractController
             'amount' => $amount,
             'formObject' => $form,
         ]);
-
     }
 
     #[Route("/order", name: 'order')]
-    public function CreateNewOrder(Request             $request,
-                                   BasketRepository    $basketRepository,
-                                   MessageBusInterface $bus): Response
+    public function CreateNewOrder(
+        Request             $request,
+        BasketRepository    $basketRepository,
+        MessageBusInterface $bus
+    ): Response
     {
-        $em = $this->entityManager;
         $order = new Order();
+
+        $workflow = $this->registry->get($order);
+        dd($workflow);
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
         $sessionId = $this->session->getId();
         $items = $basketRepository->getBasketItems($this->session);
         $amount = $this->amountService->calculateAmount($items);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formSubmitHandlerService->OrderTypeSubmit($order);
             $bus->dispatch(new OrderMessage($order->getId(), []));
             $this->addFlash('success', 'Заявка отправлена в очередь обработки RabbitMQ!');
+
             return $this->redirectToRoute('order');
         }
         return new Response($this->twig->render('main/order.html.twig', [

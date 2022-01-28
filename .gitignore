@@ -9,6 +9,7 @@
 /symfony/config/jwt/
 /docker/postgres/data/
 /var/
+/symfony/.php_cs.dist.php
 /vendor/
 ###< symfony/framework-bundle ###
 
