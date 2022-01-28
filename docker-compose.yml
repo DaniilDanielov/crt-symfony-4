@@ -19,7 +19,7 @@ services:
       - '9000:9000'
     volumes:
       - .:/var/www/app
-    command: sh -c "composer install"  
+    command: bash -c "composer install"  
     depends_on:
       - database
 
