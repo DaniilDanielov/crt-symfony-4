@@ -39,6 +39,4 @@ class UserCrudController extends AbstractCrudController
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
         ->setPermission(Action::DETAIL, 'ROLE_MANAGER');
     }
-
-
 }

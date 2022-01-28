@@ -1,0 +1,26 @@
+framework:
+    workflows:
+        order_submit:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Order
+            initial_marking: draft
+            places:
+                - draft
+                - inspection
+                - accomplishment
+            transitions:
+                inspections:
+                    from: draft
+                    to:   inspection
+                correction:
+                    from: inspection
+                    to: draft
+                complition:
+                    from: inspection
+                    to:   accomplishment

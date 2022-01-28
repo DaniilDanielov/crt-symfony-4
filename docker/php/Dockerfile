@@ -60,6 +60,7 @@ ENV PGID ${PGID}
 
 RUN usermod -u ${PUID} www-data && groupmod -g ${PGID} www-data
 RUN mkdir -p /var/www/app && chown -R www-data:www-data /var/www/app
+RUN curl -sS https://getcomposer.org/installer | php -- &&  mv composer.phar /usr/local/bin/composer
 
 RUN echo 'memory_limit=1536M' > /usr/local/etc/php/conf.d/memory.ini
 RUN echo 'upload_max_filesize = 10M' > /usr/local/etc/php/conf.d/upload-size.ini

@@ -84,12 +84,6 @@ class Basket
         return $this;
     }
 
-    public function setItems(array $items): self
-    {
-        $this->item = $item;
-
-        return $this;
-    }
 
     public function getCount(): ?int
     {

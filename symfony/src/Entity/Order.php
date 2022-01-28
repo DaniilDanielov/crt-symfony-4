@@ -31,6 +31,13 @@ class Order
      */
     private int $status = 1;
 
+    private string $state="draft";
+
+    /**
+     * @return string
+     */
+
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -114,5 +121,17 @@ class Order
         $this->UserAddress = $UserAddress;
 
         return $this;
+    }
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param string $state
+     */
+    public function setState(string $state,$context= []): void
+    {
+        $this->state = $state;
     }
 }

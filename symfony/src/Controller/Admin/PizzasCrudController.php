@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+
 class PizzasCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -29,5 +30,4 @@ class PizzasCrudController extends AbstractCrudController
                 ->setRequired(false),
         ];
     }
-
 }
