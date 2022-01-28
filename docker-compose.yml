@@ -20,6 +20,7 @@ services:
     volumes:
       - .:/var/www/app
     command: bash -c "composer install"  
+    restart: always
     depends_on:
       - database
 
