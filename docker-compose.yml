@@ -20,6 +20,7 @@ services:
     volumes:
       - .:/var/www/app
     command: bash -c "composer install"  
+    command: bash -c "bin/console lexik:jwt:generate-keypair"
     restart: always
     depends_on:
       - database
