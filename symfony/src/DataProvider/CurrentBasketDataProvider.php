@@ -32,8 +32,7 @@ final class CurrentBasketDataProvider implements RestrictedDataProviderInterface
         if (empty($_COOKIE['PHPSESSID'])) {
             throw new \Exception('Корзина с соответствующим идентификатором сессии не найдена');
         }
-        dump($_COOKIE['PHPSESSID']);
-        dump($this->basketRepository->getBasketItemsBySessionId($_COOKIE['PHPSESSID']));
+
         return $this->basketRepository->getBasketItemsBySessionId($_COOKIE['PHPSESSID']);
     }
 
@@ -43,11 +42,6 @@ final class CurrentBasketDataProvider implements RestrictedDataProviderInterface
         if (empty($_COOKIE['PHPSESSID'])) {
             throw new \Exception('Корзина с соответствующим идентификатором сессии не найдена');
         }
-        dump($resourceClass);
-        dump($operationName);
-        dump($context);
-        dump($id);
-
             return $this->basketRepository->findOnePositionByPizzasId($id,$_COOKIE['PHPSESSID']);
 
     }

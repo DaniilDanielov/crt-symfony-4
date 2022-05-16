@@ -3,7 +3,7 @@
 namespace App\Form;
 
 
-use App\Service\FormSubmitHandler\FormSubmitHandlerService;
+use App\Service\FormSubmitHandler\FormSubmitHandlerInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -12,23 +12,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Twig\Environment;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Service\BasketAddController\BasketAddControllerInterface;
-
 
 class AddToBasketType extends AbstractType
 {
-    private $basketAddController;
-    public function __construct(Environment $twig,
-                                SessionInterface $session,
-                                BasketAddControllerInterface $basketAddController,
-                                FormSubmitHandlerService $formSubmitHandler)
+    public function __construct(private FormSubmitHandlerInterface $formSubmitHandler)
     {
-        $this->twig=$twig;
-        $this->session=$session;
-        $this->basketAddController=$basketAddController;
-        $this->formSubmitHandler=$formSubmitHandler;
     }
 
     function onPostSubmit(FormEvent $event):void

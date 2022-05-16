@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,7 +15,10 @@ use App\Dto\UserInput;
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-#[ApiResource(collectionOperations: ['get','post'=>['input'=> UserInput::class]],
+#[ApiResource(collectionOperations: [
+    'get',
+    'post'=>['input'=> UserInput::class]
+    ],
     itemOperations: ['get','delete'],
     attributes: ["security" => "is_granted('ROLE_ADMIN')"],
 
@@ -95,7 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     /**
@@ -104,7 +108,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -132,12 +135,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
-     */
     public function getSalt(): ?string
     {
         return null;

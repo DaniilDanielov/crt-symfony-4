@@ -75,4 +75,17 @@ class BasketRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneBySomeFields($item,$session): ?Basket
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.item = :item')
+            ->andWhere('b.sessionId = :session')
+            ->andWhere('b.id IS NOT NULL')
+            ->setParameter('item', $item)
+            ->setParameter('session', $session)
+            ->getQuery()
+            ->getOneOrNullResult();
+        ;
+    }
 }

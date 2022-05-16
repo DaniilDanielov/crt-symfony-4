@@ -25,7 +25,7 @@ class BasketAddControllerService implements BasketAddControllerInterface
         $this->em=$em;
     }
 
-    public function AddBasketDataToNavbar(): void
+    public function addBasketDataToNavbar(): void
     {
         $items = $this->basketRepository->getBasketItems($this->session);
             $count=count($items);
@@ -39,7 +39,7 @@ class BasketAddControllerService implements BasketAddControllerInterface
         $this->session->set('orderLink', 'Оформление заказа доступно');
     }
 
-    public function AddtoBasket($count,$id): void {
+    public function addToBasket($count,$id): void {
         $sessionId=$_COOKIE['PHPSESSID'];
         $pizza = $this->em->getRepository(Pizzas::class)->findOneBy(['id' => $id]);
         $targetBasket = $this->em->getRepository(Basket::class)->findOnePositionByPizzasId($id, $sessionId);

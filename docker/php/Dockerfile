@@ -67,4 +67,3 @@ RUN echo 'upload_max_filesize = 10M' > /usr/local/etc/php/conf.d/upload-size.ini
 RUN echo 'post_max_size = 10M' >> /usr/local/etc/php/conf.d/upload-size.ini
 
 USER ${PUID}:${PGID}
-CMD bash -c "composer install && tail -f composer.json"

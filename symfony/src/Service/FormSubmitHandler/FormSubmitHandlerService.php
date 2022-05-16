@@ -11,18 +11,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\FormSubmitHandler\FormSubmitHandlerInterface;
 class FormSubmitHandlerService implements FormSubmitHandlerInterface
 {
-        private $basketAddController;
-        private $entityManager;
-        private $pizzasRepository;
-        public function __construct(EntityManagerInterface $entityManager,
-                                PizzasRepository $pizzasRepository,
-                                SessionInterface $session,
-                                BasketAddControllerInterface $basketAddController)
+        public function __construct(private EntityManagerInterface $entityManager,
+                                    private PizzasRepository $pizzasRepository,
+                                    private SessionInterface $session,
+                                    private BasketAddControllerInterface $basketAddController)
         {
-            $this->entityManager = $entityManager;
-            $this->pizzasRepository=$pizzasRepository;
-            $this->session=$session;
-            $this->basketAddController=$basketAddController;
         }
 
         public function basketFormTypeSubmit ($form): void

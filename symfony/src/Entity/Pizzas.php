@@ -22,9 +22,15 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @Vich\Uploadable
  */
 #[ApiResource(
-    collectionOperations: ['post'=>['security' => "is_granted('ROLE_ADMIN')",
-        'input'=> PizzasInput::class],'get'],
-    itemOperations: ['get','delete'=>['security' => "is_granted('ROLE_ADMIN')"]],
+    collectionOperations: [
+        'post'=>['security' => "is_granted('ROLE_ADMIN')",
+        'input'=> PizzasInput::class],
+        'get'
+    ],
+    itemOperations: [
+        'get',
+        'delete'=>['security' => "is_granted('ROLE_ADMIN')"]
+    ],
 
 )]
 

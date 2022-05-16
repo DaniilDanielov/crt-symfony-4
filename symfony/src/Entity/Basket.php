@@ -14,12 +14,17 @@ use App\Dto\BasketPutInput;
  *  @ORM\HasLifecycleCallbacks()
  */
 #[ApiResource(
-    collectionOperations: ['post'=>['path'=>'/addToCurrentBasket','input'=> BasketInput::class,
-        'openapi_context'=>['summary'=>'Добавление списка пицц в корзину']]
-        ,'get'=>['path'=>'/getCurrentBasket','openapi_context'=>['summary'=>'Получение всех позиций корзины']]],
-    itemOperations: ['get',
+    collectionOperations: [
+        'post'=> [
+        'path'=>'/addToCurrentBasket','input'=> BasketInput::class,
+        'openapi_context'=>['summary'=>'Добавление списка пицц в корзину']],
+        'get'=>['path'=>'/getCurrentBasket','openapi_context'=>['summary'=>'Получение всех позиций корзины']]
+    ],
+    itemOperations: [
+        'get',
         'put'=>['input'=>BasketPutInput::class,'openapi_context'=>['summary'=>'Изменение количества пиццы по ID Пиццы']],
-        'delete'=>['openapi_context'=>['summary'=>'Удаление пиццы из Корзины по ID Пиццы']]],
+        'delete'=>['openapi_context'=>['summary'=>'Удаление пиццы из Корзины по ID Пиццы']]
+    ],
     attributes: ["security" => "is_granted('IS_AUTHENTICATED_FULLY')"],
     )]
 

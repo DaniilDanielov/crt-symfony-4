@@ -18,40 +18,18 @@ use Twig\Environment;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface as EntityManagerInterface;
 use App\Service\AmountService;
 use App\Form\BasketCountChangerType;
-use Symfony\Component\Workflow\Registry;
-use Symfony\Component\Workflow;
 
 class MainController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private Environment $twig;
-    private $formSubmitHandlerService;
-    private $amountService;
-    private $sessionId;
-    private $registry;
-    private $workflow;
-
-
-
     public function __construct(
-        Environment                $twig,
-        EntityManagerInterface     $entityManager,
-        SessionInterface           $session,
-        AmountService              $amountService,
-        FormSubmitHandlerInterface $formSubmitHandlerService,
-        Registry $registry,
-
+        private Environment                $twig,
+        private SessionInterface           $session,
+        private AmountService              $amountService,
+        private FormSubmitHandlerInterface $formSubmitHandlerService
     )
     {
-        $this->entityManager = $entityManager;
-
-        $this->twig = $twig;
-        $this->amountService = $amountService;
-        $this->formSubmitHandlerService = $formSubmitHandlerService;
-        $this->session = $session;
         $this->session->start();
         $this->sessionId = $this->session->getId();
     }
@@ -121,8 +99,6 @@ class MainController extends AbstractController
     {
         $order = new Order();
 
-        $workflow = $this->registry->get($order);
-        dd($workflow);
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
         $sessionId = $this->session->getId();

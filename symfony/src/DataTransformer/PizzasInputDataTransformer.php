@@ -17,9 +17,6 @@ final class PizzasInputDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = []): Pizzas
     {
-        dump($object);
-        dump($to);
-        dump($context);
         $pizza = new Pizzas();
         $pizza
             ->setTitle($object->getTitle())

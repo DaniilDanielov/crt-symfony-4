@@ -30,13 +30,9 @@ final class BasketInputDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = [])
     {
-        dump($object);
-        dump($to);
-        dump($context);
         if(isset($context['item_operation_name']) && $context['item_operation_name'] ==='put')
         {
             $existingBasket = $context[AbstractItemNormalizer::OBJECT_TO_POPULATE];
-            dump($existingBasket);
             $existingBasket->setCount($object->getCount());
                 return $existingBasket;
         }
@@ -51,9 +47,6 @@ final class BasketInputDataTransformer implements DataTransformerInterface
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
         if ($data instanceof Basket) {
