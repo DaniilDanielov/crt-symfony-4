@@ -1,10 +1,11 @@
 # crt-symfony-4
 Запуск приложения 
 
+1.Переименовать файл "symfony/.env.dist" в ".env" \
+
 В корневой папке проекта ввести команды: 
 
 
-1.Переименовать файл "symfony/.env.dist" в ".env" \
 2.docker-compose up -d \
 3.docker-compose exec app composer install \
 4.docker-compose exec app bin/console doctrine:migrations:migrate \
