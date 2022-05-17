@@ -32,8 +32,6 @@ services:
     volumes:
       - ./docker/postgres/dump/:/docker-entrypoint-initdb.d
       - ./docker/postgres/data/:/var/lib/postgresql/data:rw
-    env_file:
-      - docker.env
   rabbitmq:
     image: rabbitmq:3.7-management
     ports:
